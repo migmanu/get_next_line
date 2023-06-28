@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: migmanu </var/spool/mail/migmanu>          +#+  +:+       +#+        */
+/*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:38:02 by migmanu           #+#    #+#             */
-/*   Updated: 2023/06/26 15:55:40 by migmanu          ###   ########.fr       */
+/*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
+/*   Updated: 2023/06/28 17:33:55 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
