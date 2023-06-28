@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: migmanu </var/spool/mail/migmanu>          +#+  +:+       +#+        */
+/*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/24 15:33:38 by migmanu           #+#    #+#             */
-/*   Updated: 2023/06/27 19:13:17 by jmigoya-         ###   ########.fr       */
+/*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
+/*   Updated: 2023/06/28 17:33:21 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 void	create_list(int fd, l_list **list)
 {
