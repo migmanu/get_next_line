@@ -6,10 +6,11 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/06/28 17:33:21 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/06/29 22:57:47 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 
 void	create_list(int fd, l_list **list)
 {
