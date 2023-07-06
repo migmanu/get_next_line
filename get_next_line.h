@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/06/28 17:33:55 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:41:12 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-typedef struct s_list
+typedef struct l_list
 {
-	char		*str_buff;
-	struct s_list	*next;
-}			l_list;
+	char		*str;
+	struct l_list	*next;
+}			list;
 
-char *get_next_line(int fd)
+char *get_next_line(int fd);
 
 #endif

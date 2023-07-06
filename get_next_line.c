@@ -6,44 +6,84 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/06/29 22:57:47 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/06 16:16:14 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	create_list(int fd, l_list **list)
+int	find_new_line(char *str)
 {
-	char	*str_buff;
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '/n')
+			return (NULL);
+		i++;
+	}
+	return (1);
+}
+
+list	*get_last_node(list **list)
+{
+	list	*curr;
+
+	curr = *list;
+	while (*curr->next != NULL)
+		curr = curr->next;
+	return (curr);
+}
+
+void	create_list(int fd, list **list)
+{
+	list	*new_node;
+	list	*last_node;
 
 	if (list == NULL)
 		return ;
-	str_buff = malloc(BUFFER_SIZE + 1, sizeof(char));
-	read(fd, str_buff, BUFFER_SIZE);
-	append_node(str_buff, 10);
-	while (no /n || '\0' in last node) // just check first 10 chars
+	while (!find_new_line((get_last_node(list)->str))
 	{
-		str_buff = malloc(BUFFER_SIZE + 1, sizeof(char));
-		read(fd, str_buff, BUFFER_SIZE);
-		append_node(str_buff, 10);
+		new_node = malloc(sizeof(list));
+		if (new_node == NULL)
+			return ;
+		new_node.str = malloc(sizeof(char) * BUFFER_SIZE + 1);
+		if (node.str == NULL)
+			return ;
+		new_node->next = NULL;
+		read(fd, new_node.str, BUFFER_SIZE);
+		last_node = get_last_node(list);
+		last_node->next = new_node;
 	}
-	free(str_buff);
 }
 
-void	write_line(l_list **line)
+void	build_line(list **list, char *line_buff)
 {
-	while (next node)
+	list	*curr;
+	int		i;
+	int		j;
+
+	j = 0;
+	while (curr != NULL)
 	{
-		if (node[i] == /n)
-			write /n
-		while (node[i] not /n)
-			write node[i++]
+		i = 0;
+		while (curr->str[i] != '\0' && curr->str[i] != '/n')
+		{
+			line_buff[j] = curr->str[i];
+			i++;
+			j++;
+		}
+		if (curr->str[i] == '/n')
+			line_buff[j++] = curr->str[i];
+		curr = curr->next;
 	}
+	line_buff[j] = '\0';
 }
 
 char *get_next_line(int fd)
 {
-	static l_list	*list;
+	static list	*list;
 	char		*line_buff;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line_buff, 0) < 0)
@@ -52,8 +92,9 @@ char *get_next_line(int fd)
 	if (list == NULL)
 		return (NULL);
 	// build whole line to write
-	build_line(list);
+	build_line(root);
 	// clean linked list
-	clean_list(list);
+	clean_list(root);
+	free(line_buff);
 	return (next_line);	
 }
