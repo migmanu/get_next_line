@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/10 19:53:26 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/11 00:07:55 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	find_new_line(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			return (0);
+			return (i);
 		i++;
 	}
-	return (1);
+	return (-1);
 }
 
-list	*get_last_node(t_list **root)
+t_list	*get_last_node(t_list **root)
 {
 	t_list	*curr;
 
@@ -43,9 +43,9 @@ void	create_list(int fd, t_list **root)
 
 	if (root == NULL)
 		return ;
-	while (!find_new_line((get_last_node(root)->str)))
+	while (!find_new_line((get_last_node(&root)->str)))
 	{
-		new_node = malloc(sizeof(list));
+		new_node = malloc(sizeof(t_list));
 		if (new_node == NULL)
 			return ;
 		new_node->str = malloc(sizeof(char) * BUFFER_SIZE + 1);
@@ -53,7 +53,7 @@ void	create_list(int fd, t_list **root)
 			return ;
 		new_node->next = NULL;
 		read(fd, new_node->str, BUFFER_SIZE);
-		last_node = get_last_node(root);
+		last_node = get_last_node(&root);
 		last_node->next = new_node;
 	}
 }
@@ -82,6 +82,35 @@ void	build_line(t_list **root, char *line_buff)
 	line_buff[j] = '\0';
 }
 
+void	break_last_node(t_list **root)
+{
+	t_list	last_node;
+	t_list	new_node;
+	int		index;
+
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return ;
+	last_node = get_last_node(&root);
+	index = find_new_line(last_node->str);
+	if (index != -1)
+		new_node->str = malloc(sizeof(char) * (BUFFER_SIZE - index) + 1);
+	else
+		new_node->str = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (new_node->str == NULL)
+		return ;
+	copy!
+}
+
+void	clean_list(t_list **root)
+{
+	t_list	curr;
+	t_list	last_node;
+
+	curr = *root;
+	while (curr->next != NULL)
+}
+
 char	*get_next_line(int fd)
 {
 	static t_list	*root;
@@ -92,7 +121,7 @@ char	*get_next_line(int fd)
 	create_list(fd, &root);
 	if (root == NULL)
 		return (NULL);
-	build_line(&root);
+	build_line(&root, line_buff);
 	clean_list(&root);
 	free(line_buff);
 	return (next_line);
