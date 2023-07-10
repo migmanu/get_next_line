@@ -6,10 +6,9 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/05 19:41:12 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:52:09 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
@@ -25,10 +24,10 @@
 
 typedef struct l_list
 {
-	char		*str;
+	char			*str;
 	struct l_list	*next;
-}			list;
+}			t_list;
 
-char *get_next_line(int fd);
+char	*get_next_line(int fd);
 
 #endif
