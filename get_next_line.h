@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/10 19:52:09 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/12 14:19:00 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ typedef struct l_list
 }			t_list;
 
 char	*get_next_line(int fd);
+
+int		find_new_line(char *str);
+
+t_list	*get_last_node(t_list **root);
 
 #endif

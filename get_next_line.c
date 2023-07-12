@@ -6,35 +6,11 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/11 00:07:55 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/12 14:39:27 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	find_new_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-t_list	*get_last_node(t_list **root)
-{
-	t_list	*curr;
-
-	curr = *root;
-	while (curr->next != NULL)
-		curr = curr->next;
-	return (curr);
-}
 
 void	create_list(int fd, t_list **root)
 {
@@ -43,7 +19,7 @@ void	create_list(int fd, t_list **root)
 
 	if (root == NULL)
 		return ;
-	while (!find_new_line((get_last_node(&root)->str)))
+	while (!find_new_line((get_last_node(root)->str)))
 	{
 		new_node = malloc(sizeof(t_list));
 		if (new_node == NULL)
@@ -53,7 +29,7 @@ void	create_list(int fd, t_list **root)
 			return ;
 		new_node->next = NULL;
 		read(fd, new_node->str, BUFFER_SIZE);
-		last_node = get_last_node(&root);
+		last_node = get_last_node(root);
 		last_node->next = new_node;
 	}
 }
@@ -82,16 +58,29 @@ void	build_line(t_list **root, char *line_buff)
 	line_buff[j] = '\0';
 }
 
+void	cp_str(int start, char *src, char *dest)
+{
+	int	i;
+
+	i = 0;
+	while (src[start] != '\0')
+	{
+		dest[i++] = src[start++];
+	}
+	dest[i] = '\0';
+}
+
+
 void	break_last_node(t_list **root)
 {
-	t_list	last_node;
-	t_list	new_node;
+	t_list	*last_node;
+	t_list	*new_node;
 	int		index;
 
 	new_node = malloc(sizeof(t_list));
 	if (new_node == NULL)
 		return ;
-	last_node = get_last_node(&root);
+	last_node = get_last_node(root);
 	index = find_new_line(last_node->str);
 	if (index != -1)
 		new_node->str = malloc(sizeof(char) * (BUFFER_SIZE - index) + 1);
@@ -99,16 +88,24 @@ void	break_last_node(t_list **root)
 		new_node->str = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (new_node->str == NULL)
 		return ;
-	copy!
+	if (index == -1)
+		index = 0;
+	cp_str(index, last_node->str, new_node->str);
 }
 
 void	clean_list(t_list **root)
 {
-	t_list	curr;
-	t_list	last_node;
+	t_list	*curr;
+	t_list	*node_to_delete;
 
 	curr = *root;
 	while (curr->next != NULL)
+	{
+		node_to_delete = curr;
+		curr = curr->next;
+		free(node_to_delete->str);
+		free(node_to_delete);
+	}
 }
 
 char	*get_next_line(int fd)
@@ -124,5 +121,5 @@ char	*get_next_line(int fd)
 	build_line(&root, line_buff);
 	clean_list(&root);
 	free(line_buff);
-	return (next_line);
+	return (line_buff);
 }
