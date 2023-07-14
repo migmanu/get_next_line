@@ -6,13 +6,13 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/12 14:39:27 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:35:06 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	create_list(int fd, t_list **root)
+void	create_list(int fd, t_list *root)
 {
 	t_list	*new_node;
 	t_list	*last_node;
@@ -34,44 +34,20 @@ void	create_list(int fd, t_list **root)
 	}
 }
 
-void	build_line(t_list **root, char *line_buff)
+char	*build_line(t_list **root)
 {
-	t_list	*curr;
-	int		i;
-	int		j;
+	char	*line_buff;
+	int		line_length;
 
-	j = 0;
-	curr = *root;
-	while (curr != NULL)
-	{
-		i = 0;
-		while (curr->str[i] != '\0' && curr->str[i] != '\n')
-		{
-			line_buff[j] = curr->str[i];
-			i++;
-			j++;
-		}
-		if (curr->str[i] == '\n')
-			line_buff[j++] = curr->str[i];
-		curr = curr->next;
-	}
-	line_buff[j] = '\0';
+	line_length = get_line_size(root);
+	line_buff = malloc(line_length + 1);
+	if (line_buff == NULL)
+		return (NULL);
+	line_buff = copy_line(t_list **root);
+	return (line_buff);
 }
 
-void	cp_str(int start, char *src, char *dest)
-{
-	int	i;
-
-	i = 0;
-	while (src[start] != '\0')
-	{
-		dest[i++] = src[start++];
-	}
-	dest[i] = '\0';
-}
-
-
-void	break_last_node(t_list **root)
+void	break_last_node(t_list *root)
 {
 	t_list	*last_node;
 	t_list	*new_node;
@@ -98,7 +74,7 @@ void	clean_list(t_list **root)
 	t_list	*curr;
 	t_list	*node_to_delete;
 
-	curr = *root;
+	curr = &root;
 	while (curr->next != NULL)
 	{
 		node_to_delete = curr;
@@ -110,16 +86,15 @@ void	clean_list(t_list **root)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*root;
+	static t_list	*root = NULL;
 	char			*line_buff;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line_buff, 0) < 0)
-		return (0);
+		return (NULL);
 	create_list(fd, &root);
 	if (root == NULL)
 		return (NULL);
-	build_line(&root, line_buff);
+	line_buff = build_line(&root);
 	clean_list(&root);
-	free(line_buff);
 	return (line_buff);
 }
