@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:05 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/14 16:27:06 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:49:49 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ int	get_line_size(t_list **root)
 
 	curr = *root;
 	i = 0;
+	r = 0;
 	while (curr != NULL)
 	{
 		i = 0;
 		while (curr->str[i] != '\0')
 		{
-			if (cur->str[i] == '\n')
+			if (curr->str[i] == '\n')
 				return (r);
 			i++;
 			r++;
@@ -69,4 +70,30 @@ int	get_line_size(t_list **root)
 		curr = curr->next;
 	}
 	return (r);
+}
+
+char	*copy_line(t_list **root, char *dest)
+{
+	t_list	*curr;
+	int		i;
+	int		j;
+
+	curr = *root;
+	i = 0;
+	j = 0;
+	while (curr != NULL)
+	{
+		i = 0;
+		while (curr->str[i] != '\0' && curr->str[i] != '\n')
+		{
+			dest[j] = curr->str[i];
+			i++;
+			j++;
+		}
+		if (curr->str[i] == '\n')
+			dest[j++] = '\n';
+		curr = curr->next;
+	}
+	dest[j] = '\0';
+	return (dest);
 }
