@@ -6,94 +6,110 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:05 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/14 17:49:49 by jmigoya-         ###   ########.fr       */
+/*   Updated: 17/07/2023 04:33:57 PM jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	find_new_line(char *str)
+int	find_new_line(t_list *root)
 {
 	int	i;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-t_list	*get_last_node(t_list **root)
-{
-	t_list	*curr;
-
-	curr = *root;
-	while (curr->next != NULL)
-		curr = curr->next;
-	return (curr);
-}
-
-void	cp_str(int start, char *src, char *dest)
-{
-	int	i;
-
-	i = 0;
-	while (src[start] != '\0')
-	{
-		dest[i++] = src[start++];
-	}
-	dest[i] = '\0';
-}
-
-int	get_line_size(t_list **root)
-{
-	t_list	*curr;
-	int		i;
-	int		r;
-
-	curr = *root;
-	i = 0;
-	r = 0;
-	while (curr != NULL)
+	if (root == NULL)
+		return (0);
+	while (root)
 	{
 		i = 0;
-		while (curr->str[i] != '\0')
+		while (root->str[i] != '\0' && i < BUFFER_SIZE)
 		{
-			if (curr->str[i] == '\n')
-				return (r);
+			if (root->str[i] == '\n')
+				return (1);
 			i++;
-			r++;
 		}
-		curr = curr->next;
+		root = root->next;
 	}
-	return (r);
+	return (0);
 }
 
-char	*copy_line(t_list **root, char *dest)
+t_list	*get_last_node(t_list *root)
 {
-	t_list	*curr;
-	int		i;
-	int		j;
+	if (root == NULL)
+		return (NULL);
+	while (root->next != NULL)
+		root = root->next;
+	return (root);
+}
 
-	curr = *root;
-	i = 0;
+int	get_line_size(t_list *root)
+{
+	int		i;
+	int		len;
+
+	if (root == NULL)
+		return (0);
+	len = 0;
+	while (root != NULL)
+	{
+		i = 0;
+		while (root->str[i] != '\0')
+		{
+			if (root->str[i] == '\n')
+			{
+				len++;
+				return (len);
+			}
+			i++;
+			len++;
+		}
+		root = root->next;
+	}
+	return (len);
+}
+
+void	copy_line(t_list *root, char *dest)
+{
+	int	i;
+	int	j;
+
 	j = 0;
-	while (curr != NULL)
+	while (root != NULL)
 	{
 		i = 0;
-		while (curr->str[i] != '\0' && curr->str[i] != '\n')
+		while (root->str[i] != '\0')
 		{
-			dest[j] = curr->str[i];
-			i++;
-			j++;
+			if (root->str[i] == '\n')
+			{
+				dest[j++] = '\n';
+				dest[j] = '\0';
+				return ;
+			}
+			dest[j++] = root->str[i++];
 		}
-		if (curr->str[i] == '\n')
-			dest[j++] = '\n';
-		curr = curr->next;
+		root = root->next;
 	}
 	dest[j] = '\0';
-	return (dest);
+}
+
+void	free_list(t_list **root, t_list *new_last_node, char *buffer)
+{
+	t_list	*tmp;
+
+	if (root == NULL)
+		return ;
+	while (*root != NULL)
+	{
+		tmp = (*root)->next;
+		free((*root)->str);
+		free(*root);
+		*root = tmp;
+	}
+	*root = NULL;
+	if (new_last_node->str[0])
+		*root = new_last_node;
+	else
+	{
+		free(buffer);
+		free(new_last_node);
+	}
 }

@@ -30,13 +30,16 @@ typedef struct l_list
 
 char	*get_next_line(int fd);
 char	*build_line(t_list **root);
-char	*copy_line(t_list **root, char *dest);
 
-int		find_new_line(char *str);
-int		get_line_size(t_list **root);
+void	create_list(int fd, t_list **root);
+void	add_node(t_list **root, char *buffer);
+void	clean_list(t_list **root);
+void	copy_line(t_list *root, char *dest);
+void	free_list(t_list **root, t_list *new_last_node, char *buffer);
 
-t_list	*get_last_node(t_list **root);
+int		find_new_line(t_list *root);
+int		get_line_size(t_list *root);
 
-void	cp_str(int start, char *src, char *dest);
+t_list	*get_last_node(t_list *root);
 
 #endif

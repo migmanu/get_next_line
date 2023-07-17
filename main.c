@@ -1,8 +1,8 @@
 #include "get_next_line.h"
 
-int main(void)
+int	main(void)
 {
-    int fd;
+	int	fd;
 
-    fd = open("test.txt", O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
 }
