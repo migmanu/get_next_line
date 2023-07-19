@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:05 by jmigoya-          #+#    #+#             */
-/*   Updated: 17/07/2023 04:33:57 PM jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:06:31 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	free_list(t_list **root, t_list *new_last_node, char *buffer)
 	{
 		tmp = (*root)->next;
 		free((*root)->str);
+		(*root)->str = NULL;
 		free(*root);
 		*root = tmp;
 	}
@@ -111,5 +112,7 @@ void	free_list(t_list **root, t_list *new_last_node, char *buffer)
 	{
 		free(buffer);
 		free(new_last_node);
+		buffer = NULL;
+		new_last_node = NULL;
 	}
 }

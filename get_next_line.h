@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/14 17:47:40 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:58:14 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>
