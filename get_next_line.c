@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/19 16:15:32 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/23 18:59:11 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	clean_list(t_list **root)
 	int		j;
 	char	*buffer;
 
+	if (*root == NULL)
+		return ;
 	buffer = malloc(BUFFER_SIZE + 1);
 	new_first_node = malloc(sizeof(t_list));
 	if (buffer == NULL || new_first_node == NULL)
@@ -42,6 +44,8 @@ void	add_node(t_list **root, char *buffer)
 	t_list	*new_node;
 	t_list	*last_node;
 
+	if (buffer == NULL)
+		return ;
 	last_node = get_last_node(*root);
 	new_node = malloc(sizeof(t_list));
 	if (new_node == NULL)
@@ -77,17 +81,21 @@ void	create_list(int fd, t_list **root)
 
 char	*build_line(t_list **root)
 {
-	char	*line_buff;
+	char	*line;
 	int		line_length;
 
-	if (root == NULL)
+	if (*root == NULL)
+	{
+		free(*root);
+		root = NULL;
 		return (NULL);
+	}
 	line_length = get_line_size(*root);
-	line_buff = malloc(line_length + 1);
-	if (line_buff == NULL)
+	line = malloc(line_length + 1);
+	if (line == NULL)
 		return (NULL);
-	copy_line(*root, line_buff);
-	return (line_buff);
+	copy_line(*root, line);
+	return (line);
 }
 
 char	*get_next_line(int fd)
@@ -95,11 +103,18 @@ char	*get_next_line(int fd)
 	static t_list	*root = NULL;
 	char			*line_buff;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line_buff, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free (root);
+		root = NULL;
 		return (NULL);
+	}
 	create_list(fd, &root);
 	if (root == NULL)
+	{
+		free(root);
 		return (NULL);
+	}
 	line_buff = build_line(&root);
 	clean_list(&root);
 	return (line_buff);

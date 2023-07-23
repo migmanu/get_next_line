@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:05 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/19 16:06:31 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/23 19:00:14 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	free_list(t_list **root, t_list *new_last_node, char *buffer)
 {
 	t_list	*tmp;
 
-	if (root == NULL)
-		return ;
 	while (*root != NULL)
 	{
 		tmp = (*root)->next;
@@ -106,13 +104,14 @@ void	free_list(t_list **root, t_list *new_last_node, char *buffer)
 		*root = tmp;
 	}
 	*root = NULL;
-	if (new_last_node->str[0])
-		*root = new_last_node;
-	else
-	{
-		free(buffer);
-		free(new_last_node);
-		buffer = NULL;
-		new_last_node = NULL;
-	}
+	if (new_last_node->str != NULL)
+		if (new_last_node->str[0] != '\0')
+		{
+			*root = new_last_node;
+			return ;
+		}
+	free(buffer);
+	buffer = NULL;
+	free(new_last_node);
+	new_last_node = NULL;
 }
