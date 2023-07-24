@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/25 00:15:52 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/07/25 00:20:47 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	create_list(fd, &root);
-	if (root == NULL)
-	{
-		free(root);
-		return (NULL);
-	}
 	line_buff = build_line(&root);
 	clean_list(&root);
 	return (line_buff);
