@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/25 00:20:47 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:17:50 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
+		// fix for memory leaks
 		if (root != NULL)
 		{
 			free(root->str);

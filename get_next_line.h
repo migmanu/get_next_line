@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/23 18:24:02 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:18:09 by jmigoya-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+// linked list
 typedef struct l_list
 {
 	char			*str;
