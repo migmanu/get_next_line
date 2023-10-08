@@ -6,16 +6,16 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:19 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/08/01 18:17:50 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:41:06 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	clean_list(t_list **root)
+void	clean_list(t_glist **root)
 {
-	t_list	*last_node;
-	t_list	*new_first_node;
+	t_glist	*last_node;
+	t_glist	*new_first_node;
 	int		i;
 	int		j;
 	char	*buffer;
@@ -23,7 +23,7 @@ void	clean_list(t_list **root)
 	if (*root == NULL)
 		return ;
 	buffer = malloc(BUFFER_SIZE + 1);
-	new_first_node = malloc(sizeof(t_list));
+	new_first_node = malloc(sizeof(t_glist));
 	if (buffer == NULL || new_first_node == NULL)
 		return ;
 	last_node = get_last_node(*root);
@@ -39,15 +39,15 @@ void	clean_list(t_list **root)
 	free_list(root, new_first_node, buffer);
 }
 
-void	add_node(t_list **root, char *buffer)
+void	add_node(t_glist **root, char *buffer)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_glist	*new_node;
+	t_glist	*last_node;
 
 	if (buffer == NULL)
 		return ;
 	last_node = get_last_node(*root);
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_glist));
 	if (new_node == NULL)
 		return ;
 	if (last_node == NULL)
@@ -58,7 +58,7 @@ void	add_node(t_list **root, char *buffer)
 	new_node->next = NULL;
 }
 
-void	create_list(int fd, t_list **root)
+void	create_list(int fd, t_glist **root)
 {
 	int		chars_read;
 	char	*buffer;
@@ -79,7 +79,7 @@ void	create_list(int fd, t_list **root)
 	}
 }
 
-char	*build_line(t_list **root)
+char	*build_line(t_glist **root)
 {
 	char	*line;
 	int		line_length;
@@ -100,7 +100,7 @@ char	*build_line(t_list **root)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*root = NULL;
+	static t_glist	*root = NULL;
 	char			*line_buff;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)

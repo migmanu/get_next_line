@@ -6,7 +6,7 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:54 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/08/01 18:18:09 by jmigoya-         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:40:58 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ typedef struct l_list
 {
 	char			*str;
 	struct l_list	*next;
-}			t_list;
+}			t_glist;
 
 char	*get_next_line(int fd);
-char	*build_line(t_list **root);
+char	*build_line(t_glist **root);
 
-void	create_list(int fd, t_list **root);
-void	add_node(t_list **root, char *buffer);
-void	clean_list(t_list **root);
-void	copy_line(t_list *root, char *dest);
-void	free_list(t_list **root, t_list *new_last_node, char *buffer);
+void	create_list(int fd, t_glist **root);
+void	add_node(t_glist **root, char *buffer);
+void	clean_list(t_glist **root);
+void	copy_line(t_glist *root, char *dest);
+void	free_list(t_glist **root, t_glist *new_last_node, char *buffer);
 
-int		find_new_line(t_list *root);
-int		get_line_size(t_list *root);
+int		find_new_line(t_glist *root);
+int		get_line_size(t_glist *root);
 
-t_list	*get_last_node(t_list *root);
+t_glist	*get_last_node(t_glist *root);
 
 #endif

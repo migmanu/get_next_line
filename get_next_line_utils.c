@@ -6,13 +6,13 @@
 /*   By: jmigoya- <jmigoya-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:33:05 by jmigoya-          #+#    #+#             */
-/*   Updated: 2023/07/23 22:42:56 by migmanu          ###   ########.fr       */
+/*   Updated: 2023/10/08 11:41:16 by migmanu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	find_new_line(t_list *root)
+int	find_new_line(t_glist *root)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	find_new_line(t_list *root)
 	return (0);
 }
 
-t_list	*get_last_node(t_list *root)
+t_glist	*get_last_node(t_glist *root)
 {
 	if (root == NULL)
 		return (NULL);
@@ -41,7 +41,7 @@ t_list	*get_last_node(t_list *root)
 	return (root);
 }
 
-int	get_line_size(t_list *root)
+int	get_line_size(t_glist *root)
 {
 	int		i;
 	int		len;
@@ -67,7 +67,7 @@ int	get_line_size(t_list *root)
 	return (len);
 }
 
-void	copy_line(t_list *root, char *dest)
+void	copy_line(t_glist *root, char *dest)
 {
 	int	i;
 	int	j;
@@ -91,9 +91,9 @@ void	copy_line(t_list *root, char *dest)
 	dest[j] = '\0';
 }
 
-void	free_list(t_list **root, t_list *new_last_node, char *buffer)
+void	free_list(t_glist **root, t_glist *new_last_node, char *buffer)
 {
-	t_list	*tmp;
+	t_glist	*tmp;
 
 	while (*root != NULL)
 	{
